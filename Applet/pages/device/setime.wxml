@@ -1,0 +1,76 @@
+<view class="wrapper">
+  <!-- <picker bindchange="select_set" value="{{index}}" mode="selector" range="{{set_list}}" range-key="{{'title'}}"> -->
+  <view class="line" bindtap="show_time_form">
+    <view class="left">
+      <view>重复</view>
+      <view>{{set_title}}</view>
+    </view>
+    <image src="/img/bottom.png"></image>
+  </view>
+
+  <!-- </picker> -->
+  <view class="line" bindtap="select_time">
+    <view class="left">
+      <view>时间段定时</view>
+      <view>从{{startime}} 至 {{endtime}}</view>
+    </view>
+    <image src="/img/bottom.png"></image>
+  </view>
+  <view style="position: fixed; bottom: 60rpx; width: 90%;">
+    <button class="btn" style="width: 600rpx;height: 80rpx;" bindtap="save">保存设置</button>
+  </view>
+</view>
+
+<!-- 时间段选择表单 -->
+<view class="form-bg" wx:if="{{show_form}}"></view>
+<view class="form" wx:if="{{show_form}}">
+  <view class="form-title" style="margin-bottom: 10rpx;">
+    <view>时间段定时</view>
+  </view>
+  <view class="select_line">
+    <picker bindchange="select_startime" value="{{startime1}}" mode="time">
+      <view class="picker_title">开启时间</view>
+      <view class="picker_time">{{startime1}}</view>
+    </picker>
+    <picker bindchange="select_endtime" value="{{endtime1}}" mode="time">
+      <view class="picker_title">关闭时间</view>
+      <view class="picker_time">{{endtime1}}</view>
+    </picker>
+  </view>
+  <view class="btn_line">
+    <view bindtap="cancel">取消</view>
+    <view bindtap="sure">确定</view>
+  </view>
+</view>
+
+<view class="form-bg1" wx:if="{{show_form1}}"></view>
+<view class="form1" wx:if="{{show_form1}}">
+  <view class="form-title1">
+    <view>自定义重复</view>
+  </view>
+  <view class="time_line">
+
+    <view>
+      <view class='atte-title'>
+        <checkbox-group bindchange="checkAll">
+          <label class="checkbox_line" wx:for="{{set_checkAll}}" wx:key="id">
+            <view class="line_title {{item.checked?'on' : ''}}">每天</view>
+            <checkbox value="{{item.id}}" checked="{{item.checked}}"></checkbox>
+          </label>
+        </checkbox-group>
+      </view>
+      <checkbox-group bindchange="checkboxChange">
+        <label class="checkbox_line" wx:for="{{set_list}}" wx:key="id">
+          <view class="line_title {{item.checked?'on':''}}">{{item.title}}</view>
+          <checkbox value="{{item.id}}" checked="{{item.checked}}" />
+        </label>
+      </checkbox-group>
+    </view>
+
+  </view>
+
+  <view class="btn_line">
+    <view bindtap="cancel1" style="margin-right: 30rpx;">取消</view>
+    <view bindtap="sure1">确定</view>
+  </view>
+</view>

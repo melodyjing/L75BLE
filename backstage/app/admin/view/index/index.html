@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$system.title}</title>
+    <link rel="shortcut icon" href="{$system.icon}">
+ {include file="public::top"}
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo" style="white-space: nowrap;">{$system.title}</div>
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="{$user_data.avatar}" class="layui-nav-img">
+                    {$user_data.username}
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" class="menu_link" menu_link="/admin/Index/edit_mater">基本资料</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/admin/Login/logout">退出</a></li>
+        </ul>
+    </div>
+
+    {include file="public::left"}
+
+    <div class="layui-body" style="bottom: 0;">
+        <!-- 内容主体区域 -->
+        {if condition="$menu_list.0.sub_menu"}
+        <iframe src="{$menu_list.0.sub_menu.0.menu_link}" menu_id="{$menu_list.0.sub_menu.0.id}" id="iframe" style="width: 100%;height: 99%;border: 0;" onload="loadFrame(this)"></iframe>
+        {else /}
+        <iframe src="{$menu_list.0.menu_link}" menu_id="{$menu_list.0.id}" id="iframe" style="width: 100%;height: 99%;border: 0;" onload="loadFrame(this)"></iframe>
+        {/if}
+    </div>
+
+</div>
+{include file="public::bottom"}
+</body>
+</html>

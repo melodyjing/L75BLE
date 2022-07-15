@@ -1,0 +1,72 @@
+<view class="wrapper">
+  <view class="content1">
+    <view class="title">添加设备</view>
+    <view class="tip">{{tip}}</view>
+    <view class="list" wx:if="{{deviceArray.length > 0}}">
+      <block wx:for="{{deviceArray}}">
+        <view class="box" data-device_id="{{item.ID}}" data-mac="{{item.mac}}" catchtap="onLianTap">
+          <image src="/img/product.png"></image>
+          <view>L75灭蚊灯</view>
+        </view>
+      </block>
+    </view>
+    <block wx:elif="{{is_search}}">
+      <view class="wave ripple danger">
+        <view class="circle"></view>
+        <view class="circle"></view>
+        <view class="circle"></view>
+        <view class="content">
+          <image class="img" src="/img/add_device.png" mode="cover"></image>
+        </view>
+      </view>
+      <!-- <view class="ss">
+        <image src="/img/ssld.png"></image>
+      </view> -->
+      <view class="search_tip">请将手机尽量靠近要添加的设备</view>
+    </block>
+    <view class="wsd" wx:if="{{is_wsd && deviceArray.length <= 0}}">
+      <image src="/img/wsdld.png"></image>
+      <view>{{tip}}</view>
+      <button type="primary" style="margin-top: 20rpx;" bindtap="scan">重新搜索</button>
+    </view>
+  </view>
+</view>
+
+<!-- 连接设备 -->
+<view wx:if="{{is_connect}}">
+  <view class="connect-bg"></view>
+  <view class="connect_pop">
+    <view class="connect-line">
+      <image src="/img/20.png" bindtap="hide_connect"></image>
+    </view>
+    <view class="connect_content">
+      <image src="/img/product.png"></image>
+      <view>灭蚊灯L75</view>
+    </view>
+    <view class="connect_btn">
+      <view bindtap="hide_connect">取消</view>
+      <view bindtap="connect_device">连接</view>
+    </view>
+  </view>
+</view>
+
+<!-- 添加设备 -->
+<view wx:if="{{is_add}}">
+  <view class="add-bg"></view>
+  <view class="add_pop">
+    <view class="pop_title">添加设备</view>
+    <view>
+      <input type="text" class="input" bindinput="device_name" value="L75" maxlength="15" />
+    </view>
+    <view class="type_line">
+      <block wx:for="{{type_list}}">
+        <view wx:if="{{item.id == type_id}}" class="active">{{item.name}}</view>
+        <view wx:else data-type_id="{{item.id}}" bindtap="select_type">{{item.name}}</view>
+      </block>
+    </view>
+    <view class="add_line">
+      <view bindtap="hide_add">取消</view>
+      <view bindtap="sure_add">确定</view>
+    </view>
+  </view>
+</view>

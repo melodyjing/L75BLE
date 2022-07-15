@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+   {include file="public::top"}
+    <style>
+        body{
+            width: 97%;
+            padding-left: 20px;
+        }
+        .role_node{
+            color: rgba(0,0,0,.85);
+            margin: 0 5px 0 0;
+            padding: 0 7px;
+            font-size: 12px;
+            line-height: 20px;
+            white-space: nowrap;
+            background: #fafafa;
+            border: 1px solid #d9d9d9;
+            border-radius: 2px;display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+<div style="margin-top: 10px;">
+    <span class="layui-breadcrumb">
+      <a href="javascript:;" class="menu_link" menu_link="/admin/Guides/index" menu_id="10">问题与反馈</a>
+      <a><cite>指南与问题</cite></a>
+    </span>
+</div>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
+    <legend>指南与问题</legend>
+</fieldset>
+
+<div class="demoTable layui-form">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">搜索：</label>
+            <div class="layui-input-inline">
+                <select name="type" id="type">
+                    <option value="">请选择类别</option>
+                    <option value="1">常见问题</option>
+                    <option value="2">操作指南</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" id="search_value" autocomplete="off" placeholder="请输入标题" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <button id="search" type="button" class="layui-btn" data-type="reload">搜索</button>
+                <div class="layui-btn-group demoTable" style="margin:5px 0">
+                    <button class="layui-btn layui-btn-normal " data-type="add">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="layui-hide" id="role_list" lay-filter="role_list"></table>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+{include file="public::bottom"}
+
+<script>
+
+    layui.use(['table'], function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            id: 'tblId'
+            ,elem: '#role_list'
+            ,url: '/admin/Guides/index' //数据接口
+            ,page: true //开启分页
+            ,cols: [ [ //表头
+                { field:'id',title: 'ID', width:'10%', align:'center'}
+                ,{field: 'title', title: '标题',width:'40%', align:'center'}
+                ,{field: 'add_time', title: '添加时间',width:'25%', align:'center'}
+                ,{fixed: 'right',title: '操作', width:'25%',align:'center', toolbar: '#barDemo'}
+            ] ]
+        });
+
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var search = $('#search_value');
+                var type=$('#type');
+                //执行重载
+                table.reload('tblId', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        search: search.val(),
+                        type:type.val()
+                    }
+                }, 'data');
+            },
+            add: function(){
+                layer.open({
+                    type: 2,
+                    title: '新增',
+                    shadeClose: true,
+                    area: ['560px', '90%'],
+                    content: '/admin/Guides/add' //iframe的url
+                });
+            }
+        };
+
+        //监听行工具事件
+        table.on('tool(role_list)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    $.post("/admin/Guides/delete", {id:data.id}, function (data) {
+                        if(data.code == 200){
+                            table.reload('tblId', {
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                            }, 'data');
+                        }
+                        layer.msg(data.msg,{time:2000});
+                    })
+                });
+            } else if(obj.event === 'edit'){
+                layer.open({
+                    type: 2,
+                    title: '编辑',
+                    shadeClose: true,
+                    area: ['560px', '90%'],
+                    content: '/admin/Guides/edit?id='+data.id //iframe的url
+                });
+            }
+        });
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+
+
+</body>
+</html>

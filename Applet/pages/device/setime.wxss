@@ -1,0 +1,239 @@
+/* pages/device/setime.wxss */
+.wrapper {
+  width: 90%;
+  margin: auto;
+}
+
+.line {
+  margin: 20rpx 0;
+  padding: 10rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.line_title {
+  width: 100%;
+  margin: auto;
+}
+.line_title.on {
+  color: #254bee;
+}
+.line .left view:first-child {
+  font-size: 38rpx;
+}
+
+.line .left view:last-child {
+  color: #898989;
+  font-size: 28rpx;
+  margin-top: 5rpx;
+}
+
+.line image {
+  width: 30rpx;
+  height: 18rpx;
+}
+.checkbox_line{
+  margin: 20rpx 0;
+  padding: 10rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  height: 48rpx;
+}
+.form-bg {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: black;
+  opacity: 0.8;
+  z-index: 100;
+}
+
+.form {
+  background: #ffffff;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  z-index: 1000;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.form-title {
+  display: flex;
+  align-items: center;
+  width: 88%;
+  justify-content: center;
+  margin: 30rpx auto;
+  font-size: 38rpx;
+  font-weight: bolder;
+  padding: 20rpx 0;
+}
+
+.select_line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0rpx auto 30rpx auto;
+}
+
+.picker_title {
+  width: 300rpx;
+  height: 50rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.picker_time {
+  width: 300rpx;
+  height: 50rpx;
+  padding: 15rpx 0;
+  font-size: 36rpx;
+  text-align: center;
+  background: #f5f5f5;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+  border-radius: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn_line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15rpx;
+}
+
+.btn_line view {
+  background: #f5f5f5;
+  font-size: 36rpx;
+  padding: 20rpx 0;
+  width: 40%;
+  margin-right: 10rpx;
+  border-radius: 50rpx;
+  text-align: center;
+}
+
+.btn_line view:last-child {
+  color: #ffffff;
+  background: #254bee;
+}
+
+.btn{
+  font-size: 36rpx;
+  /* padding: 20rpx 0; */
+  /* margin-right: 10rpx; */
+  border-radius: 50rpx;
+  text-align: center;
+  color: #ffffff;
+  background: #254bee;
+}
+
+
+
+.form-bg1 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: black;
+  opacity: 0.8;
+  z-index: 100;
+}
+
+.form1 {
+  background: #ffffff;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  z-index: 1000;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.form-title1 {
+  display: flex;
+  align-items: center;
+  width: 88%;
+  justify-content: center;
+  margin: 30rpx auto;
+  font-size: 38rpx;
+  font-weight: bolder;
+  padding: 20rpx 0;
+}
+
+.time_line {
+  width: 88%;
+  margin: 30rpx auto;
+}
+
+.time_line .line {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  font-size: 34rpx;
+}
+
+.time_line .line image {
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.btn_line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15rpx;
+}
+
+.btn_line view {
+  background: #f5f5f5;
+  font-size: 36rpx;
+  padding: 20rpx 0;
+  width: 40%;
+  margin-right: 10rpx;
+  border-radius: 50rpx;
+  text-align: center;
+}
+
+.btn_line view:last-child {
+  color: #ffffff;
+  background: #254bee;
+}
+
+/* 未选中的背景样式 */
+checkbox .wx-checkbox-input {
+  width: 45rpx;
+  height: 45rpx;
+  border-radius: 50%;
+}
+
+/* 选中后的背景样式 */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  border: none;
+  background: #254bee;
+}
+
+/* 选中后的勾子样式 */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 45rpx;
+  height: 45rpx;
+  line-height: 45rpx;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 34rpx;
+  color: #FFF;
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}

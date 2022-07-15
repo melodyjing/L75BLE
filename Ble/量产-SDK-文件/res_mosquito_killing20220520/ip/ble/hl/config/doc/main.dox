@@ -1,0 +1,32 @@
+/// @mainpage Radiawave Bluetooth Low Energy IP
+///
+/// @section intro_sec Overview and Notice
+///
+/// RWBLE HL is the Bluetooth Low Energy IP of Radiawave. This documentation 
+/// exhibits and presents the Fully-Embedded Design of the RWBLE Software stack.
+/// Browse at @ref ROOT "RWBLE HL" to see an overview of the different modules 
+/// which are present in the BLE Host Software.
+/// 
+/// This documentation is provided <b><i>AS IS</i></b> and is subject to change without 
+/// notice. Radiawave makes no warranty of any kind with regards to 
+/// this documentation, including, but not limited to, representations and warranties
+/// of accuracy, completeness, non-infringement, merchantability and suitability for 
+/// a specific purpose. Radiawave shall not be liable for any errors or for special, 
+/// direct, incidental, indirect or consequential damages in connection with the use 
+/// or distribution of this documentation.
+///
+/// Copyright &copy; Radiawave , 2014-2019. All rights reserved.
+///
+/// The RWBLE HOST software and documentation are furnished under license and may be used 
+/// or copied only in strict accordance with the terms of such license.
+///
+/// BLUETOOTH is a trademark owned by the Bluetooth SIG, Inc., U.S.A. and licensed to
+/// Radiawave., France. Third party brands and names are the property of their  
+/// respective owners.
+///
+///
+/// Website: https://www.radiawave.com <br>
+/// Email: sales@radiawave.com
+/// 
+/// @defgroup ROOT BLE HL IP
+

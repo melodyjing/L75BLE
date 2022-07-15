@@ -1,0 +1,60 @@
+/* pages/feedback/index.wxss */
+.wrapper{
+  background: #ffffff;
+  width: 100%;
+  min-height: 100vh;
+}
+.top-bg{
+  width: 100%;
+}
+.tab_line{
+  display: flex;
+  align-items: center;
+  padding: 35rpx 0;
+  background: #ffffff;
+  font-size: 34rpx;
+  color: #141414;
+}
+.tab_line .tab_box{
+  width: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cut_line{
+  width: 100%;
+  height: 40rpx;
+  background: #F2F2F5;
+}
+.tab_line .tab_box:first-child{
+  border-right: 1px solid #c4c4c4;
+}
+.tab_line .tab_box image{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 30rpx;
+}
+.list{
+  background: #ffffff;
+  padding-bottom: 20rpx;
+}
+.list .line_title{
+  padding: 30rpx 30rpx;
+  font-size: 36rpx;
+  color: #898989;
+  border-bottom: 0.1px solid #F0EFF6;
+}
+.list .line{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 30rpx;
+  font-size: 34rpx;
+  color: #333333;
+  border-bottom: 1rpx solid #F0EFF6;
+}
+.list .line image{
+  width: 20rpx;
+  height: 35rpx;
+}

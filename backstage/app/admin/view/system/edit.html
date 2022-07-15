@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public::top"}
+    <style>
+        body{
+            width: 97%;
+            padding-left: 20px;
+        }
+        .layui-form-label{
+            width: 110px;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-top: 10px;">
+    <span class="layui-breadcrumb">
+      <a href="javascript:;" class="menu_link" menu_link="/admin/System/edit" menu_id="6">系统配置</a>
+      <a><cite>系统配置</cite></a>
+    </span>
+</div>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
+    <legend>系统配置</legend>
+</fieldset>
+
+<div class="layui-tab layui-tab-card">
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <form class="layui-form form-item" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">系统后台标题</label>
+                    <div class="layui-input-block" style="margin-left: 140px;">
+                        <input type="text" class="layui-input" name="title" value="{$config.title}" lay-verify="required" placeholder="请输入系统后台标题">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">系统登录背景图</label>
+                    <div class="layui-input-inline">
+                        <div class="layui-upload-drag" id="test10">
+                            <img src="{$config.login_src}" style="width: 100%;height: 100%;">
+                        </div>
+                        <input type="hidden" name="login_src" id="login_src" value="{$config.login_src}" lay-verify="required">
+                    </div>
+                    <label class="layui-form-label">系统ico</label>
+                    <div class="layui-input-inline">
+                        <div class="layui-upload-drag" id="test9">
+                            <img src="{$config.icon}" style="width: 100%;height: 100%;">
+                        </div>
+                        <input type="hidden" name="icon" id="icon" value="{$config.icon}" lay-verify="required">
+                        <div class="layui-form-mid layui-word-aux" style="float: none;">请上传ico图片</div>
+                    </div>
+                    <label class="layui-form-label">系统logo</label>
+                    <div class="layui-input-inline">
+                        <div class="layui-upload-drag" id="test8">
+                            <img src="{$config.logo}" style="width: 100%;height: 100%;">
+                        </div>
+                        <input type="hidden" name="logo" id="logo" value="{$config.logo}" lay-verify="required">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo">立即提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{include file="public::bottom"}
+<script>
+    layui.use(['form','upload'], function(){
+        var form = layui.form
+            ,upload=layui.upload
+            ,layer = layui.layer;
+
+        //拖拽上传
+        upload.render({
+            elem: '#test10'
+            ,url: '/admin/Common/upload?folder=system' //改成您自己的上传接口
+            ,accept:'image'
+            ,done: function(res){
+                if(res.code == 0) {
+                    layer.msg('上传成功');
+                    $('#test10').html('<img src="' + res.data.src + '" style="width: 100%;height: 100%;">');
+                    $('#login_src').val(res.data.src);
+                }else{
+                    layer.msg(res.msg);
+                }
+            }
+        });
+
+        //拖拽上传
+        upload.render({
+            elem: '#test9'
+            ,url: '/admin/Common/upload?folder=system' //改成您自己的上传接口
+            ,accept:'file'
+            ,done: function(res){
+                console.log('res',res)
+                if(res.code == 0){
+                    layer.msg('上传成功');
+                    $('#test9').html('<img src="'+res.data.src+'" style="width: 100%;height: 100%;">');
+                    $('#icon').val(res.data.src);
+                }else{
+                    layer.msg(res.msg);
+                }
+            }
+        });
+
+        //拖拽上传
+        upload.render({
+            elem: '#test8'
+            ,url: '/admin/Common/upload?folder=system' //改成您自己的上传接口
+            ,accept:'image'
+            ,done: function(res){
+                if(res.code == 0) {
+                    layer.msg('上传成功');
+                    $('#test8').html('<img src="' + res.data.src + '" style="width: 100%;height: 100%;">');
+                    $('#logo').val(res.data.src);
+                }else{
+                    layer.msg(res.msg);
+                }
+            }
+        });
+
+        //监听提交
+        form.on('submit(demo)', function(data){
+            console.log('field',data.field);
+            $.post("/admin/System/edit", data.field, function (data) {
+                if(data.code == 200){
+                    window.parent.location.reload();
+                }
+                layer.msg(data.msg,{time:2000});
+            });
+            return false;
+        });
+    });
+</script>
+
+</body>
+</html>

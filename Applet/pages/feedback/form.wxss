@@ -1,0 +1,104 @@
+.wrapper{
+  background-color: #F5F5F5;
+  min-height: 100vh;
+  width: 100%;
+}
+.tip{
+  font-size: 30rpx;
+  padding: 20rpx;
+}
+.form{
+  padding: 30rpx 20rpx;
+  width: 90%;
+  margin: auto;
+}
+.line1{
+  display: flex;
+  justify-content: space-between;
+}
+.line-input{
+  width: 100%;
+  font-size: 30rpx;
+  color: #333333;
+}
+.line1 input{
+  background-color: #ffffff;
+  padding: 15rpx 20rpx;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+}
+.line-input view{
+  margin-bottom: 20rpx;
+}
+.line-text view{
+  margin:20rpx 0;
+  font-size: 34rpx;
+  color: #333333;
+}
+.line-text textarea{
+  background-color: #ffffff;
+  padding: 30rpx 20rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  width: 94.8%;
+  font-size: 30rpx;
+  height: 250rpx;
+}
+.img_list{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+}
+.img_list .img{
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  margin-top: 10rpx;
+  margin-right: 20rpx;
+  background: #ffffff;
+}
+.img_list image{
+  width: 140rpx;
+  height: 140rpx;
+}
+.img_list .img:last-child image{
+  width: 50rpx;
+  height: 50rpx;
+  padding-top: 45rpx;
+}
+.btn_line{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin: 50rpx auto;
+  font-size: 34rpx;
+  position: absolute;
+  bottom: 20rpx;
+  left: 5%;
+}
+.btn_line view{
+  width: 45%;
+  text-align: center;
+  padding: 30rpx 0;
+  background: #FFFFFF;
+  border-radius: 50rpx;
+  color: #494949;
+}
+.comment-btn{
+  background-color: #144CF7!important;
+  color: white;
+  width: 45%!important;
+  border-radius: 50rpx;
+  padding: 30rpx 0;
+  font-size: 34rpx;
+}
+.del{
+  width: 40rpx!important;
+  height: 40rpx!important;
+  position: relative;
+  top: -145rpx;
+  left: 40rpx;
+}

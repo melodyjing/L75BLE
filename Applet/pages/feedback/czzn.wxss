@@ -1,0 +1,19 @@
+/* pages/feedback/czzn.wxss */
+.wrapper{
+  width: 100%;
+  min-height: 100vh;
+  background: #F5F5F5;
+}
+.list{
+  width: 90%;
+  margin: auto;
+  padding: 20rpx 0;
+}
+.line{
+  background: #ffffff;
+  padding: 20rpx 30rpx;
+  margin: 30rpx 0;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  color: #232323;
+}

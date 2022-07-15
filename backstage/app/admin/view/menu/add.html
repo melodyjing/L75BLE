@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public::top"}
+</head>
+<body>
+
+<form class="layui-form form-item" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="menu_name" lay-verify="required" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">上级菜单</label>
+        <div class="layui-input-inline">
+            <select name="pid" lay-filter="pid">
+                <option value="0">一级菜单</option>
+                {volist name="$menu_list" id="vo"}
+                  <option value="{$vo.id}">{$vo.menu_name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="select_menu_class">
+        <label class="layui-form-label">菜单图标</label>
+        <div class="layui-input-inline">
+            <input type="text" name="menu_class" id="menu_class"  autocomplete="off" placeholder="请输入菜单图标" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux" style="color: red!important;">请前往 <a href="https://www.layui.com/doc/element/icon.html" target="_blank">layui图标库</a> 选用合适的图标</div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">一级节点</label>
+        <div class="layui-input-inline">
+            <select name="node_id" lay-filter="select_node" lay-verify="required">
+                <option value="">请选择节点</option>
+                {volist name="$node_list" id="vo"}
+                <option value="{$vo.id}">{$vo.node_name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">二级节点</label>
+        <div class="layui-input-inline">
+            <select name="node_pid" id="node_pid" lay-verify="required">
+                <option value="">请先选择一级节点</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单排序</label>
+        <div class="layui-input-inline">
+            <input type="number" name="sort" autocomplete="off" min="0" value="0" placeholder="请输入排序，从大到小排序" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+{include file="public::bottom"}
+<script>
+    layui.use(['form'], function(){
+        var form = layui.form
+            ,layer = layui.layer;
+
+        form.on('select(pid)', function(data){
+            console.log('data_value',data.value);
+           if(data.value == 0){
+               $('#select_menu_class').show();
+           }else{
+               $('#select_menu_class').hide();
+           }
+        });
+
+        form.on('select(select_node)', function(data){
+            $.post("/admin/Menu/sub_node", {node_id:data.value}, function (data) {
+                if(data.code == 200) {
+                    var select_html = '<option value="">请选择二级节点</option>';
+                    $.each(data.sub_node_list, function (index, item) {
+                        select_html += '<option value="' + item.id + '">' + item.node_name + '</option>';
+                    });
+                }else{
+                    var select_html = '<option value="">无二级节点</option>';
+                }
+                $('#node_pid').html(select_html);
+                form.render('select');
+            })
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            $.post("/admin/Menu/add", data.field, function (data) {
+                 if(data.code == 200){
+                     var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                     parent.layer.close(index);
+                     window.parent.location.reload();
+                 }
+                layer.msg(data.msg,{time:2000});
+            })
+            return false;
+        });
+    });
+</script>
+
+</body>
+</html>

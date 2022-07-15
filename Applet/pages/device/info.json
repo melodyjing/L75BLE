@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "ec-canvas": "../../ec-canvas/ec-canvas",
+    "share-box": "../../components/shareBox/index"
+  },
+  "navigationBarTitleText": "NOIN",
+  "navigationStyle": "custom"
+}

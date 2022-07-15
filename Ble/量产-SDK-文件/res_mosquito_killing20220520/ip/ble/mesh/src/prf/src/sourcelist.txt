@@ -1,0 +1,67 @@
+ #***************************************************************************************
+ #
+ # @file sourcelist.txt
+ #
+ # @brief This file lists up all the source files that will be compiled and built for support
+ #        of Mesh Profile
+ #
+ # Copyright (C) Radiawave 2017-2021
+ #
+ #***************************************************************************************
+
+# Mesh API
+    m_api.c
+    m_api_msg.c
+    
+# Mesh Profile Toolboxes
+    tb/m_tb.c
+    tb/m_tb_mio.c
+    tb/m_tb_key.c
+    tb/m_tb_state.c
+    tb/m_tb_iv.c
+    tb/m_tb_replay.c
+    tb/m_tb_friend.c
+    tb/m_tb_lpn.c
+    tb/m_tb_store${MESH_STORAGE}.c
+
+# Mesh Bearer
+    bearer/m_bearer.c
+    bearer/m_bearer_adv.c
+    bearer/m_bearer_gatt.c
+
+# Mesh Layers
+    lay/m_lay.c
+    lay/m_lay_net.c
+    lay/m_lay_ltrans.c
+    lay/m_lay_utrans.c
+    lay/m_lay_lpn.c
+    lay/m_lay_friend.c
+    lay/m_lay_hb.c
+    lay/m_lay_access.c
+    lay/m_lay_proxy.c
+
+# Mesh Foundation Models
+    fnd/m_fnd.c
+    fnd/m_fnd_confs.c
+    fnd/m_fnd_hlths.c
+    
+# Mesh Provisioning 
+    prov/m_prov.c
+    prov/m_prov_bearer.c
+    prov/m_prov_adv_trans.c
+   
+# Mesh Beaconing
+    bcn/m_bcn.c
+
+# Mesh Debug Module
+    dbg/m_dbg.c
+    dbg/m_dbg_key.c
+    dbg/m_dbg_mio.c
+    dbg/m_dbg_lay.c
+    dbg/m_dbg_data.c
+    dbg/m_dbg_state.c
+    dbg/m_dbg_prov.c
+    dbg/m_dbg_bcn.c
+    dbg/m_dbg_store.c
+    dbg/m_dbg_lpn.c
+    dbg/m_dbg_friend.c

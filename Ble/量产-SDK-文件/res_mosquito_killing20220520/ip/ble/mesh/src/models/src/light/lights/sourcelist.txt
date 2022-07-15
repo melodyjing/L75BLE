@@ -1,0 +1,14 @@
+ #***************************************************************************************
+ # @file sourcelist.txt
+ #
+ # @brief This file lists up all the source files that will be compiled and built for
+ #        Lighting Server Models
+ #
+ # Copyright (C) Radiawave 2017-2021
+ #
+ #***************************************************************************************
+
+    mm_lights.c
+    mm_lights_ln.c
+    mm_lights_ctl.c
+    mm_lights_hsl.c

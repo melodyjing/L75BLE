@@ -1,0 +1,75 @@
+#ifndef _MOSQUITO_KILLING_PROTOCOLC_H
+#define _MOSQUITO_KILLING_PROTOCOLC_H
+
+
+
+#include "app_config.h"
+
+#if (APP_MOSQUITO_KILLING_ENABLE == 1)
+#include "cobra_system.h"
+
+#define  APP_MOSQUITO_KILLING_CMD_TYPE_READ      0x01
+#define  APP_MOSQUITO_KILLING_CMD_TYPE_WRITE     0x02
+#define  APP_MOSQUITO_KILLING_CMD_TYPE_RETURN    0x03
+
+#define  APP_MOSQUITO_KILLING_CMD_ON_OFF       0x03
+#define  APP_MOSQUITO_KILLING_CMD_COUNT        0x05
+
+#define  APP_MOSQUITO_KILLING_PROTOCOL_DATA_MAX        0x64
+
+#define  APP_MOSQUITO_KILLING_HEAD_1   0xa5
+#define  APP_MOSQUITO_KILLING_HEAD_2   0xaa
+#define  APP_MOSQUITO_KILLING_HEAD_3   0xac
+
+#define  APP_MOSQUITO_KILLING_RAIL_1   0xc5
+#define  APP_MOSQUITO_KILLING_RAIL_2   0xcc
+#define  APP_MOSQUITO_KILLING_RAIL_3   0xca
+
+#define  APP_MOSQUITO_KILLING_PRODUCT_TYPE   0xc2
+
+typedef struct
+{
+    uint8_t head[3];
+
+    uint8_t checksum;
+    uint8_t cmd_type;
+    uint8_t product_type;
+    uint8_t cmd;
+    uint8_t param[20];
+
+    uint8_t rail[3];
+
+    uint8_t valid;
+} mosquito_killing_data_t;
+
+
+typedef struct
+{
+    uint8_t year[2];
+    uint8_t month;
+    uint8_t day;
+    uint8_t hour;
+    uint8_t min;
+    uint8_t sec;
+    uint8_t week;
+} mosquito_killing_date_t;
+
+typedef struct
+{
+    uint8_t hour_begin;
+    uint8_t min_begin;
+
+uint8_t hour_end;
+uint8_t min_end;
+
+} mosquito_killing_timing_t;
+
+void app_mosquito_killing_bt_data_process(uint8_t cmd, uint8_t cmdType, uint8_t *pdata, uint8_t len);
+void app_mosquito_killing_bt_data_receive(unsigned char *buffer, unsigned int length);
+void app_mosquito_killing_bt_data_send(uint8_t cmd, uint8_t cmdType, uint8_t *pdata, uint8_t len);
+void app_mosquito_killing_bt_data_init(void);
+
+#endif  /* APP_MOSQUITO_KILLING_ENABLE */
+
+#endif  /* _MOSQUITO_KILLING_PROTOCOLC_H */
+

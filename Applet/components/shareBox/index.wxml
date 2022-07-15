@@ -1,0 +1,9 @@
+<view class="share-wrap {{visible ? 'active' : ''}}" catchtouchmove="preventDefault">
+  <view class="share-back {{visible ? 'active' : ''}}" bindtap="onClose"></view>
+  <view class="share-container {{visible ? 'active' : ''}}">
+    <view class="close" bindtap="handleClose"></view>
+    <image mode="widthFix" src="{{sharePath}}" class="share-image" />
+    <button type="primary" class="save-btn" bindtap="handleSavePhoto">保存图片</button>
+  </view>
+</view>
+<painter style="position: absolute; top: -9999rpx;" palette="{{imgDraw}}" scaleRatio="1.2" bind:imgOK="onImgOK" />

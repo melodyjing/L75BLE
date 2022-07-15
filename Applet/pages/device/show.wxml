@@ -1,0 +1,12 @@
+
+<view>
+  <view class="qrcode_pop">
+    <image src="/img/share_bg.png" class="bg" ></image>
+    <view class="box3">
+      <view>已累计灭蚊</view>
+      <view>{{device_info.num}}</view>
+      <view><text>NOIN</text>已经安全陪伴您{{device_info.day}}天</view>
+      <view>无蚊生活由此开始</view>
+    </view>
+  </view>
+</view>

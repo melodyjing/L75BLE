@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/device/info",
+    "pages/device/setime",
+    "pages/device/show",
+    "pages/device/index",
+    "pages/feedback/index",
+    "pages/device/add",
+    "pages/feedback/form",
+    "pages/feedback/czzn",
+    "pages/feedback/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F5F5F5",
+    "navigationBarTitleText": "灭蚊",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取地理位置"
+    }
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

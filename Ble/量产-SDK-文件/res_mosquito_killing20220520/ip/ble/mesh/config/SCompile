@@ -1,0 +1,156 @@
+########################################################################################
+#
+# @file SCompile
+#
+# @brief Compilation instructions for Mesh Stack build
+#
+# Copyright (C) Radiawave 2017-2021
+#
+#########################################################################################
+
+#-----------------------------------------------------------
+# Paths
+#-----------------------------------------------------------
+
+ble_mesh_ip_src_dir      = os.path.join(ble_mesh_ip_dir, 'src')
+ble_mesh_ip_api_dir      = os.path.join(ble_mesh_ip_dir, 'api')
+ble_mesh_ip_inc_dir      = os.path.join(ble_mesh_ip_dir, 'inc')
+ble_mesh_ip_inc_al_dir   = os.path.join(ble_mesh_ip_dir, 'inc_al')
+ble_mesh_ip_al_dir       = os.path.join(ble_mesh_ip_dir, 'al')
+
+ble_mesh_src_inc_dir     = os.path.join(ble_mesh_ip_src_dir, 'inc')
+ble_mesh_src_prf_dir     = os.path.join(ble_mesh_ip_src_dir, 'prf')
+ble_mesh_src_models_dir  = os.path.join(ble_mesh_ip_src_dir, 'models')
+ble_mesh_src_common_dir  = os.path.join(ble_mesh_ip_src_dir, 'common')
+
+ble_mesh_common_inc_dir  = os.path.join(ble_mesh_src_common_dir, 'inc')
+ble_mesh_common_src_dir  = os.path.join(ble_mesh_src_common_dir, 'src')
+
+ble_mesh_models_inc_dir  = os.path.join(ble_mesh_src_models_dir, 'inc')
+ble_mesh_models_src_dir  = os.path.join(ble_mesh_src_models_dir, 'src')
+
+ble_mesh_prf_inc_dir     = os.path.join(ble_mesh_src_prf_dir, 'inc')
+ble_mesh_prf_src_dir     = os.path.join(ble_mesh_src_prf_dir, 'src')
+
+#-----------------------------------------------------------
+# Compilation Flags
+#-----------------------------------------------------------
+
+mesh_def_list += ['CFG_BLE_MESH']
+mesh_def_list += ['CFG_BLE_MESH_MSG_API']
+
+# Advertising Test Mode driver required for BLE 4.2, 4.2+2m and 4.1
+mesh_def_list += ['CFG_BLE_ADV_TEST_MODE']
+
+if(env['DBG'] == 'on'):
+    mesh_def_list += ['CFG_BLE_MESH_DBG']
+if (env['MESH_RELAY'] == 'on'):
+    mesh_def_list += ['CFG_BLE_MESH_RELAY']
+if (env['MESH_GATT_PROXY'] == 'on'):
+    mesh_def_list += ['CFG_BLE_MESH_GATT_PROXY']
+if (env['MESH_GATT_PROV'] == 'on'):
+    mesh_def_list += ['CFG_BLE_MESH_GATT_PROV']
+if (env['MESH_FRIEND'] == 'on'):
+    mesh_def_list += ['CFG_BLE_MESH_FRIEND']
+if (env['MESH_LPN'] == 'on'):
+    mesh_def_list += ['CFG_BLE_MESH_LPN']
+if (env['MESH_STORAGE'] == 'none'):
+    mesh_def_list += ['CFG_BLE_MESH_STORAGE_NONE']
+    env['MESH_STORAGE'] = ''
+else:
+    if (env['MESH_STORAGE'] == 'wvt'):
+        mesh_def_list += ['CFG_BLE_MESH_STORAGE_WVT']
+    elif (env['MESH_STORAGE'] == 'nvds'):
+        mesh_def_list += ['CFG_BLE_MESH_STORAGE_NVDS']
+    env['MESH_STORAGE'] = '_' + env['MESH_STORAGE']
+
+# Supported Models
+models = []
+server = False
+client = False
+
+if (env['MESH_MDL_ALL'] == 'on'):
+    models.append(('gen',   'gens',   ['CFG_BLE_MESH_MDL_GENS']))
+    models.append(('gen',   'genc',   ['CFG_BLE_MESH_MDL_GENC']))
+    models.append(('light', 'lights', ['CFG_BLE_MESH_MDL_LIGHTS']))
+    models.append(('light', 'lightc', ['CFG_BLE_MESH_MDL_LIGHTC']))
+#    models.append(('sens',  'senss',  ['CFG_BLE_MESH_MDL_SENSS']))
+#    models.append(('sens',  'sensc',  ['CFG_BLE_MESH_MDL_SENSC']))
+#    models.append(('tscn',  'tscns',  ['CFG_BLE_MESH_MDL_TSCNS']))
+#    models.append(('tscn',  'tscnc',  ['CFG_BLE_MESH_MDL_TSCNC']))
+    server = True
+    client = True
+else:
+    if (env['MESH_MDL_GENS'] == 'on'):
+        models.append(('gen', 'gens', ['CFG_BLE_MESH_MDL_GENS']))
+        server = True
+    if (env['MESH_MDL_GENC'] == 'on'):
+        models.append(('gen', 'genc', ['CFG_BLE_MESH_MDL_GENC']))
+        client = True
+    if (env['MESH_MDL_LIGHTS'] == 'on'):
+        models.append(('light', 'lights', ['CFG_BLE_MESH_MDL_LIGHTS']))
+        server = True
+    if (env['MESH_MDL_LIGHTC'] == 'on'):
+        models.append(('light', 'lightc', ['CFG_BLE_MESH_MDL_LIGHTC']))
+        client = True
+#    if (env['MESH_MDL_SENSS'] == 'on'):
+#        models.append(('sens', 'senss', ['CFG_BLE_MESH_MDL_SENSS']))
+#        server = True
+#    if (env['MESH_MDL_SENSC'] == 'on'):
+#        models.append(('sens', 'sensc', ['CFG_BLE_MESH_MDL_SENSC']))
+#        client = True
+#    if (env['MESH_MDL_TSCNS'] == 'on'):
+#        models.append(('tscn', 'tscns', ['CFG_BLE_MESH_MDL_TSCNS']))
+#        server = True
+#    if (env['MESH_MDL_TSCNC'] == 'on'):
+#        models.append(('tscn', 'tscnc', ['CFG_BLE_MESH_MDL_TSCNC']))
+#        client = True
+
+if (server):
+    mesh_def_list += ['CFG_BLE_MESH_MDL_SERVER']
+if (client):
+    mesh_def_list += ['CFG_BLE_MESH_MDL_CLIENT']
+compile_model = (server or client)
+
+#-----------------------------------------------------------
+# Include List
+#-----------------------------------------------------------
+
+mesh_inc_list += [ble_mesh_ip_al_dir]
+mesh_inc_list += [ble_mesh_ip_api_dir]
+mesh_inc_list += [ble_mesh_ip_inc_dir]
+mesh_inc_list += [ble_mesh_ip_inc_al_dir]
+mesh_inc_list += [ble_mesh_src_inc_dir]
+mesh_inc_list += [ble_mesh_common_inc_dir]
+mesh_inc_list += [ble_mesh_prf_inc_dir]
+mesh_inc_list += [ble_mesh_src_prf_dir]
+
+if (compile_model):
+    mesh_inc_list += [ble_mesh_models_inc_dir]
+    mesh_inc_list += [ble_mesh_models_src_dir]
+
+#-----------------------------------------------------------
+# Source List
+#-----------------------------------------------------------
+
+# Abstraction Layer
+src_list = scutils.file_list_read(env, os.path.join(ble_mesh_ip_al_dir,'sourcelist.txt'), 'al')
+mesh_src_list += scutils.build_object(env, src_list, ble_mesh_ip_dir, os.path.join(obj_dir, 'mesh'))
+
+# Common
+src_list = scutils.file_list_read(env, os.path.join(ble_mesh_common_src_dir,'sourcelist.txt'), os.path.join('common', 'src'))
+mesh_src_list += scutils.build_object(env, src_list, ble_mesh_ip_src_dir, os.path.join(obj_dir, 'mesh'))
+
+# Profile
+src_list = scutils.file_list_read(env, os.path.join(ble_mesh_prf_src_dir,'sourcelist.txt'), os.path.join('prf', 'src'))
+mesh_src_list += scutils.build_object(env, src_list, ble_mesh_ip_src_dir, os.path.join(obj_dir, 'mesh'))
+
+if (compile_model):
+    # Models
+    src_list = scutils.file_list_read(env, os.path.join(ble_mesh_models_src_dir,'sourcelist.txt'), os.path.join('models', 'src'))
+    mesh_src_list += scutils.build_object(env, src_list, ble_mesh_ip_src_dir, os.path.join(obj_dir, 'mesh'))
+
+    for model, submodel, flags in models:
+        src_list = scutils.file_list_read(env, os.path.join(ble_mesh_models_src_dir, model, submodel, 'sourcelist.txt'), submodel)
+        mesh_src_list += scutils.build_object(env, src_list, os.path.join(ble_mesh_models_src_dir, model), os.path.join(obj_dir, 'mesh', 'models', 'src', model))
+        mesh_def_list += flags

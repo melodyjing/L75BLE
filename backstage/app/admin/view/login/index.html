@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$system.title}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+    <link rel="shortcut icon" href="{$system.icon}">
+    <style>
+        body{
+            background: url({$system.login_src}) no-repeat fixed center;
+            -webkit-background-size: cover;
+        }
+        .container{
+            width: 100%;
+            min-height: 100%;
+            padding: 90px 0 90px;
+            position: relative;
+        }
+        .head{
+            font-size: 33px;
+            color: white;
+            font-weight: 600;
+            position: relative;
+            top: 0px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .main{
+            min-width: 260px;
+            width: 368px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px 60px 50px 0;
+        }
+        .main h2{
+            text-align: center;
+            padding: 0 0 20px 65px;
+        }
+        .verify{
+            width: 100px;
+            position: relative;
+            top: -36px;
+            height: 35px;
+            left: 158px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body >
+<div class="container">
+    <div class="head">
+         <span>{$system.title}</span>
+    </div>
+    <div class="main">
+        <h2>登录</h2>
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="用户名"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">验证码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="captcha" style="width: 60%;" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input" >
+                    <img src="/admin/Login/verify" onclick="this.src='/admin/Login/verify?'+Math.random()" class="verify" alt="captcha" />
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="loginForm" style="width:250px">登录</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/static/layui/layui.all.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['form', 'layedit'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+             $ = layui.jquery;
+        form.on('submit(loginForm)',function (data) {
+            $.ajax({
+                url:'/admin/Login/login',
+                data:data.field,
+                type:'get',
+                success:function (data) {
+                    console.log('data',data);
+                    if(data.code == 200){
+                        location.href = "/admin/index";
+                    }else{
+                        layer.msg(data.msg,{time:2000});
+                    }
+                }
+            })
+            return false;
+        })
+
+    });
+</script>
+
+</body>
+</html>

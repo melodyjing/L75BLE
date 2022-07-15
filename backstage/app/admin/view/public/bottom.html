@@ -1,0 +1,33 @@
+<script src="/static/layui/layui.js"></script>
+<script src="/static/js/jquery-3.4.1.min.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+
+    });
+
+    $('.menu_link').on('click',function(){
+        var url=$(this).attr('menu_link');
+        var menu_id=$(this).attr('menu_id');
+        if($('iframe').attr('src')){
+            $('iframe').attr('src',url);
+            $('iframe').attr('menu_id',menu_id);
+        }else{
+            parent.window.document.getElementById("iframe").setAttribute('src',url);
+            parent.window.document.getElementById("iframe").setAttribute('menu_id',menu_id);
+        }
+    });
+
+    function loadFrame(obj){
+        var menu_id=parent.window.document.getElementById("iframe").getAttribute('menu_id');
+        $('.menu_link').each(function(){
+            if(menu_id == $(this).attr('menu_id')){
+                $(this).parent().addClass('layui-this');
+            }else{
+                $(this).parent().removeClass('layui-this');
+            }
+        })
+    }
+</script>

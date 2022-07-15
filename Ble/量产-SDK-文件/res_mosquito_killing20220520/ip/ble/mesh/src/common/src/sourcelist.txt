@@ -1,0 +1,27 @@
+ #***************************************************************************************
+ #
+ # @file sourcelist.txt
+ #
+ # @brief This file lists up all the source files that will be
+ #        compiled and built for Mesh Stack
+ #
+ # Copyright (C) Radiawave 2017-2021
+ #
+ #***************************************************************************************
+
+# Mesh Stack
+    mesh.c
+    mesh_api.c
+    mesh_api_msg.c
+
+# Mesh Stack Common Toolboxes
+    tb/mesh_tb_buf.c
+    tb/mesh_tb_sec.c
+    tb/mesh_tb_timer.c
+    tb/mesh_tb.c
+    
+# Mesh Stack Debug
+    dbg/mesh_dbg_buf.c
+    dbg/mesh_dbg_sec.c
+    dbg/mesh_dbg_timer.c
+    dbg/mesh_dbg.c

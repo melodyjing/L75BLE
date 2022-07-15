@@ -1,0 +1,136 @@
+<view class="wrapper">
+  <view style="position: fixed; top: 0; padding-top: {{statusBarHeight}}px; height: {{navHeight}}px;" class="nav">
+    <image class="back" src="/img/back.png" bindtap="tapBack"></image>
+    <image src="/img/logo.png" class="logo" mode="aspectFit"></image>
+  </view>
+  <view class="content" style="margin-top: {{statusBarHeight+navHeight}}px;">
+    <!-- <picker bindchange="bindDevice" value="{{index}}" mode="selector" range="{{device_list}}" range-key="{{'name'}}"> -->
+    <view class="picker" bindtap="show_device">
+      <view class="device_name">{{device_info.name}}</view>
+      <image src="/img/bottom.png"></image>
+    </view>
+    <!-- </picker> -->
+    <view class="tip">{{tip}}</view>
+    <view class="product">
+      <image src="/img/product1.png"></image>
+      <view class="box">
+        <view class="name">小鸟笼灭蚊灯（臻界）</view>
+        <!-- <view class="name">诺印旗舰款灭蚊灯</view> -->
+        <view class="number">
+          <view>已累计灭蚊数</view>
+          <view>{{device_info.num}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="canvas-table">
+      <view class="year_line">
+        <image src="/img/left.png" bindtap="del" mode="aspectFit"></image>
+        <view>{{year}}</view>
+        <image src="/img/right.png" bindtap="add" mode="aspectFit"></image>
+      </view>
+      <!-- <view style="display:flex;align-items:center;width:100%;margin:auto;justify-content:space-between;"> -->
+      <view style="height:300rpx;margin-left: 20rpx; margin-right: 20rpx;z-index: 1;">
+        <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+      </view>
+      <!-- </view> -->
+    </view>
+    <view class="line">
+      <view class="left">
+        <view class="top_title">
+          <view>定时模式</view>
+          <image src="/img/open.png" wx:if="{{device_info.is_timing}}" bindtap="open_close"></image>
+          <image src="/img/close.png" wx:else bindtap="open_close"></image>
+        </view>
+        <view class="left_line">
+          <view class="box2" bindtap="setTime">
+            <view>开启时间</view>
+            <!-- <view>上午</view> -->
+            <view>{{device_info.startime}}</view>
+          </view>
+          <view class="box2" bindtap="setTime">
+            <view>关闭时间</view>
+            <!-- <view>下午</view> -->
+            <view>{{device_info.endtime}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="right" bindtap="close_open" bindlongpress="reload">
+        <view>开关</view>
+        <image src="/img/open1-click.png" wx:if="{{is_open == 1}}"></image>
+        <image src="/img/open1.png" wx:else></image>
+      </view>
+
+    </view>
+    <view class="bottom_line">
+      <view class="box1" bindtap="show_img">
+        <image src="/img/img1.png"></image>
+        <view>生成图片</view>
+      </view>
+      <view class="box1" bindtap="feedback">
+        <image src="/img/img2.png"></image>
+        <view>问题与反馈</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<share-box kill="{{device_info.num||0}}" day="{{device_info.day||0}}" isCanDraw="{{show_share}}" bind:initData="createShareImage" bind:close="hide_img" />
+<!-- 
+<view wx:if="{{show_share}}">
+  <view class="qrcode-bg">
+      <view class="qrcode_pop">
+      <image src="/img/share_bg.png" class="bg"></image>
+      <view class="box3">
+        <view>已累计灭蚊</view>
+        <view>{{device_info.num}}</view>
+        <view><text>NOIN</text>已经安全陪伴您{{device_info.day}}天</view>
+        <view>无蚊生活由此开始</view>
+        <image src="/img/QR.png"></image>
+         <image src="{{device_info.qrcode_src}}"></image> 
+      </view>
+    </view>
+    <image src="{{shareImagePath}}" mode="widthFix" style="width: 550rpx; height: 900rpx; margin-top: 180rpx;margin-left: 100rpx;" />
+    <image src="/img/cancel.png" class="cancel" bindtap="cancel"></image>
+    <button type="primary" bindtap="saveImage" style="margin-top: 40rpx;">保存图片</button>
+    <view style="position: fixed; top: 0;left: 0;width: 100%;height: 100%; z-index: -999;" bindtap="cancel"> </view>
+
+  </view>
+</view> -->
+
+
+<view wx:if="{{fail_show}}">
+  <view class="fail-bg"></view>
+  <view class="fail-pop">
+    <image src="/img/product.png" class="bg"></image>
+    <view class="fail_tip">设备已离线</view>
+    <view class="fail_box">
+      <view>请检查：</view>
+      <view>1.设备是否开启，是否还有电</view>
+      <view>2.设备蓝牙是否开启，手机的蓝牙是否开启</view>
+      <view>3.设备是否离手机距离过远、隔墙或有其他遮挡物</view>
+      <view>4.适配操作是否按照顺序，按照顺序请重新尝试</view>
+    </view>
+    <view class="fail_btn" bindtap="connect">重新连接</view>
+    <view class="fail_btn" bindtap="reback">返回首页</view>
+    <image src="/img/20.png" class="cancel" bindtap="cancel"></image>
+  </view>
+</view>
+
+<view wx:if="{{show_list}}">
+  <view class="device_bg" bindtap="closeDeviceList" style="z-index: 999;"></view>
+  <view class="device_pop" style="z-index: 999;">
+    <view class="device_list">
+      <block wx:for="{{device_list}}" wx:key="id">
+        <view class="device_list_item active" wx:if="{{device_info.id == item.id}}" data-id="{{item.id}}" bindtap="bindDevice">
+          <view>
+            {{item.type_title+'的'+item.name}}
+          </view>
+          <image src="/img/active.png" mode="aspectFit" style="height: 24rpx;width: 24rpx;"></image>
+        </view>
+        <view wx:else class="device_list_item" data-id="{{item.id}}" bindtap="bindDevice">
+          {{item.type_title+'的'+item.name}}
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

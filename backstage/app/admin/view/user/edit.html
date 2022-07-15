@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public::top"}
+</head>
+<body>
+
+<form class="layui-form form-item" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">账户名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" value="{$user_data.username}" lay-verify="required" autocomplete="off" placeholder="请输入账户名称" class="layui-input">
+        </div>
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="truename" readonly value="{$user_data.truename}" lay-verify="required" autocomplete="off" placeholder="请输入账户真实名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" autocomplete="off" placeholder="请输入账户密码" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">密码不输入即为不修改</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">头像</label>
+        <div class="layui-input-inline">
+            <div class="layui-upload-drag" id="test10">
+                <img src="{$user_data.avatar}" style="width: 100%;height: 100%;">
+            </div>
+            <input type="hidden" name="avatar" id="avatar" value="{$user_data.avatar}" lay-verify="required">
+        </div>
+        <label class="layui-form-label">所属角色</label>
+        <div class="layui-input-inline">
+            <select name="role_id" lay-verify="required">
+                <option>请选择所属角色</option>
+                {volist name="role_list" id="vo"}
+                <option value="{$vo.id}" {if condition="$vo['id'] == $user_data['role_id']"}selected{/if}>{$vo.role_name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{$user_data.id}">
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+{include file="public::bottom"}
+<script>
+    layui.use(['form','upload'], function(){
+        var form = layui.form
+            ,upload=layui.upload
+            ,layer = layui.layer;
+
+        //拖拽上传
+        upload.render({
+            elem: '#test10'
+            ,url: '/admin/User/upload' //改成您自己的上传接口
+            ,accept:'image'
+            ,done: function(res){
+                if(res.code == 0) {
+                    layer.msg('上传成功');
+                    $('#test10').html('<img src="' + res.data.src + '" style="width: 100%;height: 100%;">');
+                    $('#avatar').val(res.data.src);
+                }else{
+                    layer.msg(res.msg);
+                }
+            }
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            $.post("/admin/User/edit", data.field, function (data) {
+                if(data.code == 200){
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index);
+                    window.parent.location.reload();
+                }
+                layer.msg(data.msg,{time:2000});
+            });
+            return false;
+        });
+    });
+</script>
+
+</body>
+</html>

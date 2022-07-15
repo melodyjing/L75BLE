@@ -1,0 +1,12 @@
+ #***************************************************************************************
+ # @file sourcelist.txt
+ #
+ # @brief This file lists up all the source code that will be
+ #        compiled and built for RF module. 
+ #
+ # Copyright (C) RADIAWAVE  2017-2020
+ #
+ #***************************************************************************************
+
+#radio
+    rf_${RF}.c

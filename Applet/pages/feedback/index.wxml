@@ -1,0 +1,21 @@
+<view class="wrapper">
+  <image src="/img/wtfk.png" class="top-bg" mode="widthFix"></image>
+  <view class="tab_line">
+    <view class="tab_box" bindtap="czzn">
+      <image src="/img/tab1.png"></image>
+      <view>操作指南</view>
+    </view>
+    <view class="tab_box" bindtap="form">
+      <image src="/img/tab2.png"></image>
+      <view>反馈问题</view>
+    </view>
+  </view>
+  <view class="cut_line"></view>
+  <view class="list">
+    <view class="line_title">常见问题</view>
+    <view class="line" wx:for="{{list}}" wx:key="id" data-guide_id="{{item.id}}" bindtap="detail">
+      <view>{{item.title}}</view>
+      <image src="/img/right.png"></image>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<view class="wrapper">
+  <image src="/img/index.png" mode="heightFix" style="width: 750rpx; height: 1372rpx; display: inline-block; box-sizing: border-box"></image>
+  <button bindtap="getUserProfile">授权登录</button>
+</view>

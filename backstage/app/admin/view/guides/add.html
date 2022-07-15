@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public::top"}
+    <style>
+        #content1{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<form class="layui-form form-item" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">标题</label>
+        <div class="layui-input-inline">
+            <input type="text" name="title" style="width: 420px;" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">类别</label>
+        <div class="layui-input-inline" style="width: 420px;">
+            <select name="type" lay-filter="type" lay-verify="required">
+                <option value="">请选择类别</option>
+                <option value="1">常见问题</option>
+                <option value="2">操作指南</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="content1">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block" style="width: 420px;">
+            <textarea id="content" name="content" style="display: none;" lay-verify="content"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">序号</label>
+        <div class="layui-input-inline">
+            <input type="number" name="sort" min="0" step="1" value="0" autocomplete="off" placeholder="从大到小排序" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+        </div>
+    </div>
+</form>
+
+{include file="public::bottom"}
+<script>
+    layui.use(['form','layedit'], function(){
+        var form = layui.form
+            ,layedit = layui.layedit
+            ,layer = layui.layer;
+
+        form.on('select(type)', function(data){
+            console.log('data_value',data.value);
+            if(data.value == 1){
+                $('#content1').show();
+            }else{
+                $('#content1').hide();
+            }
+        });
+
+        layedit.set({
+            uploadImage: {
+                url: '/admin/Common/upload?folder=system' //接口url
+            }
+        });
+
+        var content=layedit.build('content'); //建立编辑器
+        //自定义验证规则
+        form.verify({
+            content: function (value) {
+                layedit.sync(content);
+            },
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            $.post("/admin/Guides/add", data.field, function (data) {
+                if(data.code == 200){
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index);
+                    window.parent.location.reload();
+                }
+                layer.msg(data.msg,{time:2000});
+            });
+            return false;
+        });
+    });
+</script>
+
+</body>
+</html>

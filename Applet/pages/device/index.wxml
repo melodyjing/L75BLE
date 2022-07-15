@@ -1,0 +1,61 @@
+<view class="wrapper">
+  <view style="padding-top: {{statusBarHeight}}px; height: {{navHeight}}px;" class="nav">
+    <image src="/img/logo.png" class="logo" mode="aspectFit"></image>
+  </view>
+  <view class="content">
+    <view class="welcome_word">Hello,{{nickname}}!</view>
+    <view class="tip">无蚊生活由此开始</view>
+    <view class="list">
+      <block wx:for="{{list}}" wx:key="id">
+        <view class="box" data-index="{{index}}" data-device_name="{{item.name}}" data-type_id="{{item.type}}" data-id="{{item.id}}" bindlongpress="show" bindtap="info">
+          <image src="/img/product.png" class="product_img"></image>
+          <view class="right">
+            <view class="device_name">{{item.name}}</view>
+            <view>{{item.type_title}}</view>
+          </view>
+          <image src="/img/selected.png" class="selected" wx:if="{{item.selected}}"></image>
+        </view>
+      </block>
+      <view class="box1" bindtap="add">
+        <image src="/img/add.png"></image>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{show}}" style="width: 100%;height: 100%;z-index:100;position: absolute; top: 0;left: 0;" bindtap="hide"></view>
+  <view class="bottom" wx:if="{{show}}">
+    <view class="btn" bindtap="top">
+      <image src="/img/top.png"></image>
+      <view>移到顶部</view>
+    </view>
+    <view class="btn" bindtap="rename">
+      <image src="/img/rename.png"></image>
+      <view>重命名</view>
+    </view>
+    <view class="btn" bindtap="del">
+      <image src="/img/del.png"></image>
+      <view>删除</view>
+    </view>
+  </view>
+</view>
+
+
+<!-- 修改设备名称 -->
+<view wx:if="{{is_add}}">
+  <view class="add-bg"></view>
+  <view class="add_pop">
+    <view class="pop_title">修改设备名称</view>
+    <view>
+      <input type="text" class="input" value="{{select_device_name}}" bindinput="device_name" maxlength="15" />
+    </view>
+    <view class="type_line">
+      <block wx:for="{{type_list}}" wx:key="id">
+        <view wx:if="{{item.id == type_id}}" class="active">{{item.name}}</view>
+        <view wx:else data-type_id="{{item.id}}" bindtap="select_type">{{item.name}}</view>
+      </block>
+    </view>
+    <view class="add_line">
+      <view bindtap="hide_add">取消</view>
+      <view bindtap="sure_add">确定</view>
+    </view>
+  </view>
+</view>

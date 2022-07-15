@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public::top"}
+    <style>
+        body{
+            width: 97%;
+            padding-left: 20px;
+        }
+        .role_node{
+            color: rgba(0,0,0,.85);
+            margin: 0 5px 0 0;
+            padding: 0 7px;
+            font-size: 12px;
+            line-height: 20px;
+            white-space: nowrap;
+            background: #fafafa;
+            border: 1px solid #d9d9d9;
+            border-radius: 2px;display: inline-block;
+        }
+        .show_user_img{
+            display: inline-block;
+            width: 50%;
+            height: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-top: 10px;">
+    <span class="layui-breadcrumb">
+      <a href="javascript:;" class="menu_link" menu_link="/admin/Problems/index" menu_id="11">问题与反馈</a>
+      <a><cite>用户反馈</cite></a>
+    </span>
+</div>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
+    <legend>用户反馈</legend>
+</fieldset>
+
+<div class="demoTable layui-form">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">搜索：</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" maxlength="40" name="search" id="search_content" placeholder="客户openid｜标题" autocomplete="off">
+            </div>
+            <div class="layui-input-inline">
+                <select name="status" id="status">
+                    <option value="">请选择状态</option>
+                    <option value="1">待处理</option>
+                    <option value="2">已处理</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <button id="search" type="button" class="layui-btn" data-type="reload">搜索</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="layui-hide" id="list" lay-filter="list"></table>
+
+<script type="text/html" id="show_avatar">
+    <!-- 头像 -->
+    <img class="show_user_img" src="{{d.avatar}}" onclick="show_img('{{ d.avatar }}')">
+</script>
+
+<script type="text/html" id="show_content">
+    <span class="role_node">问题建议：{{d.title}}</span>
+    <span class="role_node">图片：{{#  layui.each(d.img_src, function(index, item){ }}<img src="{{item}}" onclick="show_img('{{ item }}')" style="width: 20px;height:20px;cursor: pointer;"> {{#  }); }}</span>
+    <span class="role_node">联系方式：{{d.contact}}</span>
+</script>
+
+<script type="text/html" id="barDemo">
+    {{# if(d.status == 1){}}
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="edit">已处理</a>
+    {{# }else{ }}
+    已处理
+    {{# } }}
+</script>
+
+{include file="public::bottom"}
+
+<script>
+
+    layui.use(['table','layer','form'], function(){
+        var table = layui.table
+            ,layer=layui.layer
+            ,form=layui.form;
+
+        //第一个实例
+        table.render({
+            id: 'tblId'
+            ,elem: '#list'
+            ,url: '/admin/Problems/index' //数据接口
+            ,page: true //开启分页
+            ,cellMinWidth: 80
+            ,cols: [ [ //表头
+                { field:'id',sort: true, title: 'ID', width:'10%', align:'center'}
+                ,{field: 'nickName', title: '昵称',align:'center',width:'15%'}
+                ,{field: 'avatar', title: '头像',align:'center',width:'10%',templet: '#show_avatar'}
+                ,{field: 'title', title: '问题内容',align:'center',width:'50%',templet: '#show_content'}
+                ,{fixed: 'right',title: '操作', width:'15%',align:'center', toolbar: '#barDemo'}
+            ] ]
+        });
+
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var status=$('#status').val();
+                var search=$('#search_content').val();
+                //执行重载
+                table.reload('tblId', {
+                    page: {
+                        curr: 1
+                    }
+                    ,where: {
+                        search: search,
+                        status:status
+                    }
+                }, 'data');
+            }
+        };
+
+        //监听行工具事件
+        table.on('tool(list)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'edit'){
+                layer.confirm('确定已处理', function(index){
+                    $.post("/admin/Problems/edit", {id:data.id}, function (data) {
+                        if(data.code == 200){
+                            table.reload('tblId', {
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                            }, 'data');
+                        }
+                        layer.msg(data.msg,{time:2000});
+                    })
+                });
+            }
+        });
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+
+    function show_img(img_path){
+        console.log('img_src',img_path);
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            shadeClose: true,
+            content: '<img src="'+img_path+'" style="width: 100%;height: 100%;">',
+        });
+    }
+</script>
+
+
+</body>
+</html>

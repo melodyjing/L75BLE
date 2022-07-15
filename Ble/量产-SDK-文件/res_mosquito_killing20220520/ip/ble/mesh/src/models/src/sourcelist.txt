@@ -1,0 +1,26 @@
+ #***************************************************************************************
+ #
+ # @file sourcelist.txt
+ #
+ # @brief This file lists up all the source files that will be compiled and built for support
+ #        of Mesh Models
+ #
+ # Copyright (C) Radiawave 2017-2021
+ #
+ #***************************************************************************************
+
+# API
+    mm_api.c
+    mm_api_msg.c
+
+# Toolboxes
+    tb/mm_tb_state.c
+    tb/mm_tb_bind.c
+    tb/mm_tb_replay.c
+    tb/mm_tb.c
+
+# Route
+    route/mm_route.c
+    
+# Debug
+    dbg/mm_dbg.c

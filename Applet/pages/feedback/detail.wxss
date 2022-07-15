@@ -1,0 +1,5 @@
+/* pages/feedback/detail.wxss */
+page{
+  width: 96%;
+  margin: 10rpx auto;
+}

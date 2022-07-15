@@ -1,0 +1,70 @@
+ #***************************************************************************************
+ # @file sourcelist.txt
+ #
+ # @brief This file lists up all the source code that will be
+ #        compiled and built for the RWBLE SW IP. 
+ #
+ # Copyright (C) RADIAWAVE  2017-2020
+ #
+ #***************************************************************************************
+    
+# l2cap: l2cm and l2cc
+    l2c/l2cm/l2cm.c
+    l2c/l2cc/l2cc.c
+    l2c/l2cc/l2cc_task.c
+    l2c/l2cc/l2cc_pdu.c
+    l2c/l2cc/l2cc_sig.c
+    l2c/l2cc/l2cc_lecb.c
+    
+# att: attm, attc and atts
+    gatt/attm/attm.c
+    gatt/attm/attm_db.c
+    
+    gatt/attc/attc.c
+    gatt/atts/atts.c
+    
+# gatt: generic attribute profile
+    gatt/gattc/gattc.c
+    gatt/gattc/gattc_task.c
+    gatt/gattm/gattm.c
+    gatt/gattm/gattm_task.c
+    
+# gap: generic access profile
+    gap/gapc/gapc.c
+    gap/gapc/gapc_task.c
+    gap/gapc/gapc_hci.c
+    gap/gapc/gapc_sig.c
+    
+    gap/gapm/gapm.c
+    gap/gapm/gapm_task.c
+    gap/gapm/gapm_cfg.c
+    gap/gapm/gapm_list.c
+    gap/gapm/gapm_smp.c
+    gap/gapm/gapm_actv.c
+    gap/gapm/gapm_adv.c
+    gap/gapm/gapm_scan.c
+    gap/gapm/gapm_init.c
+    gap/gapm/gapm_per_sync.c
+    gap/gapm/gapm_addr.c
+    
+    
+#if (env['CIS'] == 'on') or (env['BIS'] == 'on')
+    gap/gapi/gapi_task.c
+    gap/gapi/gapi_dp.c
+    gap/gapi/gapi_cis.c
+    gap/gapi/gapi_bis.c
+#endif # (env['CIS'] == 'on') or (env['BIS'] == 'on')
+    
+# smp: security
+    gap/smpc/smpc.c
+    gap/smpc/smpc_api.c
+    gap/smpc/smpc_util.c
+    gap/smpc/smpc_crypto.c
+    
+    
+# prf: Profile API
+    prf/prf.c
+    prf/prf_utils.c
+    
+# ble: low energy
+    rwble_hl/rwble_hl.c

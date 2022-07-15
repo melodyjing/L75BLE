@@ -1,0 +1,20 @@
+ #***************************************************************************************
+ # @file sourcelist.txt
+ #
+ # @brief This file lists up all the source files that will be
+ #        compiled and built for Mesh Abstraction layer 
+ #
+ # Copyright (C) Radiawave 2017-2021
+ #
+ #***************************************************************************************
+
+# Mesh Abstraction Layer
+    mal.c
+    mal_task.c
+    mal_sec.c
+    mal_timer.c
+    mal_djob.c
+    mal_activity.c
+    mal_adv.c
+    mal_scan.c
+    mal_con.c

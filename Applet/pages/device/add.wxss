@@ -1,0 +1,297 @@
+/* pages/device/add.wxss */
+.wrapper{
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+}
+.content1{
+  width: 94%;
+  margin: auto;
+  padding-top: 20rpx;
+}
+.title{
+  font-size: 56rpx;
+  color: #181818;
+}
+.tip{
+  font-size: 26rpx;
+  color: #8B8B8B;
+  margin-top: 15rpx;
+  margin-bottom: 100rpx;
+}
+.ss{
+  text-align: center;
+  margin: 150rpx auto 80rpx;
+}
+.ss image{
+  width: 600rpx;
+  height: 600rpx;
+  margin: auto;
+}
+.search_tip{
+  color: #464646;
+  font-size: 30rpx;
+  margin-top: 60rpx;
+  text-align: center;
+}
+.ss view{
+  color: #464646;
+  font-size: 30rpx;
+  margin-top: 30rpx;
+}
+.wsd{
+  text-align: center;
+  margin: 200rpx auto 0;
+}
+.wsd image{
+  width: 400rpx;
+  height: 400rpx;
+  margin: auto;
+}
+.wsd view{
+  color: #464646;
+  font-size: 30rpx;
+  margin-top: 150rpx;
+}
+.list{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 30rpx;
+}
+.list .box{
+  width: 48%;
+  padding: 30rpx 0;
+  background: #F5F5F5;
+  text-align: center;
+  color: #313131;
+  font-size: 28rpx;
+  margin: 20rpx 0;
+  border-radius: 20rpx;
+}
+.box image{
+  width: 80rpx;
+  height: 160rpx;
+  margin-bottom: 5rpx;
+}
+
+.connect-bg{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background-color: #494949;
+  opacity: 0.8;
+}
+.connect_pop{
+  width: 90%;
+  height: 550rpx;
+  background-color: white;
+  position: fixed;
+  top: 20%;
+  left: 5%;
+  border-radius: 30rpx;
+  padding-top: 20rpx;
+  font-size: 33rpx;
+}
+.connect-line{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5rpx 30rpx 20rpx;
+}
+.connect-line image{
+  width: 35rpx;
+  height: 35rpx;
+}
+.connect_content{
+  margin: 30rpx auto;
+  text-align: center;
+  color: #282828;
+  font-size: 38rpx;
+  font-weight: bold;
+}
+.connect_content image{
+  width: 100rpx;
+  height: 200rpx;
+  margin-bottom: 30rpx;
+}
+.connect_btn{
+  width: 90%;
+  display: flex;
+  margin: 30rpx auto 0;
+  justify-content: center;
+  align-items: center;
+}
+.connect_btn view{
+  width: 45%;
+  text-align: center;
+  padding: 20rpx 0;
+  border-radius: 50rpx;
+  margin: 0 10rpx;
+  background: #144CF7;
+  color: #ffffff;
+}
+.connect_btn view:first-child{
+  background: #F5F5F5;
+  color: #494949;
+}
+
+.add-bg{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background-color: #494949;
+  opacity: 0.8;
+}
+.add_pop{
+  width: 86%;
+  height: 450rpx;
+  background-color: #F0F0F0;
+  position: fixed;
+  top: 30%;
+  left: 7%;
+  border-radius: 30rpx;
+  padding-top: 20rpx;
+  font-size: 33rpx;
+}
+
+.pop_title{
+  text-align: center;
+  font-size: 38rpx;
+  font-weight: bold;
+  margin: 30rpx 0;
+}
+.input{
+  background: #ffffff;
+  border: 1rpx solid #9CA3B0;
+  width: 85%;
+  margin: auto;
+  padding: 10rpx 20rpx;
+  border-radius: 15rpx;
+}
+.type_line{
+  display: flex;
+  width: 98%;
+  margin: 35rpx auto 0;
+  align-items: center;
+  overflow: scroll;
+  font-size: 28rpx;
+  color: #8E8E8E;
+}
+.type_line view{
+  width: 120rpx;
+  padding: 30rpx 0;
+  text-align: center;
+  border-radius: 50%;
+  background: #DCDCDC;
+  margin: 0 5rpx;
+}
+.type_line .active{
+  background: #007AFF;
+  color: #ffffff;
+}
+.add_line{
+  display: flex;
+  align-items: center;
+  border-top: 1rpx solid #9CA3B0;
+  width: 90%;
+  margin: 40rpx auto;
+}
+.add_line view{
+  width: 50%;
+  text-align: center;
+  padding: 20rpx 0;
+  color: #007AFF;
+  font-size: 40rpx;
+}
+.add_line view:first-child{
+  border-right: 1rpx solid #9CA3B0;
+}
+
+
+
+
+.wave {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  line-height: 100px;
+  font-size: 28px;
+  margin: auto;
+}
+ 
+.wave .circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+}
+ 
+/* 波纹效果 */
+.wave.ripple .circle {
+  width: calc(100% - 6px);
+  /* 减去边框的大小 */
+  height: calc(100% - 6px);
+  /* 减去边框的大小 */
+  border: 3px solid #fff;
+}
+ 
+.wave.ripple .circle:first-child {
+  animation: circle-opacity 2s infinite;
+}
+ 
+.wave.ripple .circle:nth-child(2) {
+  animation: circle-opacity 2s infinite;
+  animation-delay: .3s;
+}
+ 
+.wave.ripple .circle:nth-child(3) {
+  animation: circle-opacity 2s infinite;
+  animation-delay: .6s;
+}
+ 
+.wave.ripple.danger {
+  color: red;
+}
+ 
+.wave.ripple.danger .circle {
+  border-color: blue;
+  background-color: blue;
+}
+ 
+.wave.ripple.warning {
+  color: orange;
+}
+ 
+.wave.ripple.warning .circle {
+  border-color: orange;
+}
+ 
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+}
+ 
+.img {
+  width: 200rpx;
+  height: 200rpx;
+  z-index: 99;
+}
+ 
+@keyframes circle-opacity {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+ 
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public::top"}
+</head>
+<body>
+
+<form class="layui-form form-item" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="role_name" value="{$role_data.role_name}" lay-verify="required" autocomplete="off" placeholder="请输入角色名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色简介</label>
+        <div class="layui-input-inline">
+            <input type="text" name="desc" autocomplete="off" value="{$role_data.desc}" placeholder="请输入角色简介" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色授权</label>
+        <div class="layui-input-inline">
+            <div id="test12" class="demo-tree-more"></div>
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{$role_data.id}">
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+{include file="public::bottom"}
+<script>
+    layui.use(['form','tree'], function(){
+        var form = layui.form
+            ,tree=layui.tree
+            ,layer = layui.layer;
+
+        $.post("/admin/Role/auth",{id:"{$role_data.id}"},function (data) {
+            tree.render({
+                elem: '#test12'
+                ,data: data
+                ,showCheckbox: true  //是否显示复选框
+                ,id: 'demoId1'
+                ,showLine: false
+            });
+        });
+
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            var checkedData = tree.getChecked('demoId1');
+            var node_ids = getCheckedId(checkedData);
+            $.post("/admin/Role/edit", {'role_name':data.field.role_name,'desc':data.field.desc,'node_ids':node_ids,id:data.field.id}, function (data) {
+                 if(data.code == 200){
+                     var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                     parent.layer.close(index);
+                     window.parent.location.reload();
+                 }
+                layer.msg(data.msg,{time:2000});
+            })
+            return false;
+        });
+
+        // 获取选中节点的id
+        function getCheckedId(jsonObj) {
+            var id = "";
+            $.each(jsonObj, function (index, item) {
+                if (id != "") {
+                    id = id + "," + item.id;
+                }
+                else {
+                    id = item.id;
+                }
+                var i = getCheckedId(item.children);
+                if (i != "") {
+                    id = id + "," + i;
+                }
+            });
+            return id;
+        }
+    });
+</script>
+
+</body>
+</html>
